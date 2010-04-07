@@ -193,6 +193,10 @@ class Fire
 	 */
 	public static function init($args)
 	{
+		$args[1] = trim($args[1]);
+		// If the user type 'fire' without any arguments, show some help.
+		if (empty($args[1]))
+			self::help();
 		// First thing to do is to verify that the first parameter is a valid keyword!
 		if (!in_array($args[1], self::$_valid_cli_params))
 			throw new Exception($args[1] . ' is not a valid type! Type fire help for instructions on how to use this script!');
