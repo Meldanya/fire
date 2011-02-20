@@ -9,6 +9,7 @@
  */
 
 // error_reporting(E_ALL & E_STRICT);
+define(STDOUT, fopen('php://stdout', 'w'));
 
 /**
 * Master class. Shows the help, contains all the configuration constants and all the static methods.
@@ -193,7 +194,12 @@ class Fire
 	 */
 	public static function init($args)
 	{
-		// First thing to do is to verify that the first parameter is a valid keyword!
+      if (is_array($args) === FALSE || sizeof($args) <= 1) {
+         self::_display_message('', 'No argument supplied. Type fire help for instructions on how to use this script.');
+         exit();
+      }
+
+      // First thing to do is to verify that the first parameter is a valid keyword!
 		if (!in_array($args[1], self::$_valid_cli_params))
 			throw new Exception($args[1] . ' is not a valid type! Type fire help for instructions on how to use this script!');
 		
